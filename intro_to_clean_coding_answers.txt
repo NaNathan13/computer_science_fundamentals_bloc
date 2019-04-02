@@ -1,0 +1,130 @@
+1. In your own words, explain what clean code is and why it is important. 
+A:Clean code is the ability to read code and easily understand what it is trying to accomplish. This also means the code does not repeat itself and is often easily reusable. 
+
+2. Read this article about Toyota and their use of bad code. Although you may not yet understand all of the topics discussed, think about another commonly used object that relies on computers and explain what would happen if the code was not created to an acceptable standard.
+
+A: In my opinion the industry that is most suceptible at the moment is healthcare and specifically hospitals. Over the past several years it has become an almost common occurance for hospitals to be hacked and entirely taken over with the power being shut off and would only then be returned after a ransom was payed or the issue resolved. It is widely known that most hospitals cyber security is quite lacking. Over the next several years I sincerely hope hospitals take major precautions and invest heavily in updating their cybersecurity. 
+
+3. This is not clean code. The variables are not easily determined what they represent, there are a lot of unecessary comments, the function "do" is performing too many actions, and the indenting is poorly done. 
+
+	Fixes: 
+    FUNCTION convertTemperature(temp, scale)
+    IF scale = "Fahrenheit" THEN 
+        SET convertedTemp to (temp−32) * (5/9)
+    ELSE IF scale = "Celsius" THEN 
+        SET convertedTemp to temp * 1.8000 + 32.00                       
+    END IF
+    	PRINT convertedTemp
+    END FUNCTION
+
+4. This code is far better than the previous. The variables are well defined, it is easy to read, and it is only doing one thing. 
+
+5. 
+   5a.)
+
+FUNCTION addTax(subTotal)
+    RETURN subtotal * tax
+END FUNCTION
+
+FUNCTION checkOutCust(subTotal, discountRate)
+   RETURN (subTotal * discountRate) + addTax
+END FUNCTION
+
+FUNCTION displayTotal()
+   PRINT "Your total is: " + checkOutCust
+
+FUNCTION payment(amount, paymentType)
+   IF paymentType = 'CASH' 
+   THEN
+       PRINT "Change due: " + amount - checkOutCust
+   ELSE IF paymentType = 'CREDIT CARD' 
+   THEN
+       PRINT "Your credit card has been charged: " + checkOutCust
+   END IF
+END FUNCTION
+
+
+   5b.)
+
+ FUNCTION checkoutBook(book, guest)
+     IF (guest.accountActive is true AND guest.hasOverdueBooks is false AND guest.outstandingFees equals 0)
+        APPEND book to guest.books
+        SET book.status to "Checked Out"
+        PRINT "Your books have been issued."
+      ELSE
+        PRINT "Unable to check out book."
+      END IF
+ END FUNCTION
+
+
+   5c.)
+
+CLASS BankAccount
+
+ FUNCTION displayBalance
+    PRINT balance
+ END FUNCTION
+
+ FUNCTION deposit(amount)
+    SET balance to balance + amount
+ END FUNCTION
+
+ FUNCTION withdraw(amount)
+     IF balance > amount 
+     THEN
+       SET balance to balance - amount
+     END
+ END FUNCTION
+
+END CLASS
+
+CLASS NewOffer
+ FUNCTION creditCardOffer
+     IF NOT(customer.hasCreditCard) THEN
+         CALL offerCreditCard
+     END
+ END FUNCTION
+
+ FUNCTION checkStatus
+     IF NOT(customer.hasCheckingAccount) THEN
+         CALL offerCheckingAccount
+     END
+ END FUNCTION
+
+ END CLASS
+ ....
+ ....
+ ....
+
+END
+
+
+6. Square- Given an array of integers, find out whether the sum of the integers is a perfect square. If it is a perfect square, return the square root, otherwise return the sum
+
+function isPerfectSquare(array) {
+	let sum = 0;
+	for (i=0; i < array.length; i++) {
+		sum += array[i]
+	}
+	if (Math.sqrt(sum) * Math.sqrt(sum) === sum) {
+      return Math.sqrt(sum);
+  } else {
+	    return sum;
+		}
+}
+
+var test = isPerfectSquare([10,1,4,6,1,1,2]);
+console.log(test);
+
+7. Duplicate-  Given an array of integers, find out whether the array contains any duplicate elements. The function should return true if any value appears at least twice in the array, and false if every element is distinct.
+
+function isDuplicate(array) {
+    for (i = 0; i < array.length; i++) {
+        if (array.indexOf(array[i]) !== array.lastIndexOf(array[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+isDuplicate([10,1,4,6,1,1,2]);

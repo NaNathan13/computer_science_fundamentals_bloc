@@ -1,0 +1,38 @@
+1(a)
+var personsInLine = ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+1(b)
+function addNewPerson(personName) {
+    return personsInLine.push(personName);
+}
+addNewPerson("Mary");
+
+1(c)
+function findPerson(personName) {
+    return personsInLine.indexOf(personName);
+}
+findPerson("Josh");
+
+1(d)
+function findPerson(personName) {
+    return personsInLine.indexOf(personName);
+}
+findPerson("Emily");
+Answer: It returns -1;
+
+1(e)
+function cutInLine(startIndex, deleteCount, personName){
+    return personsInLine.splice(startIndex, deleteCount, personName);
+}
+cutInLine(1, 0, "Melissa");
+
+1(f)
+function leaveLine(startIndex, deleteCount) {
+    return personsInLine.splice(startIndex, deleteCount);
+}
+leaveLine(4, 1);
+
+
+2. A commonly need for a data structure is for credit card infomration. You need to be able to link the number with the CVV, the name of the owner, the bank, the address, and possibly the current debt to that card. That is a lot of complicated information. 
+
+3. For my example the best way to store it would be an object with keys and indexes. This infomration would need to be hashed/incrypted but that in my current opinion would be the best option. 

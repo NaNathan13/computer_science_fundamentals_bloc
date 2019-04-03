@@ -1,0 +1,249 @@
+Questions:
+1. What is a hash table?
+  A: A hash table is a data structure that stores key-value pairs similar to an object. It would be used instead of an object if a lot of the data holds very similar information.
+
+2. What is hashing?
+  A: Hashing is the conversion from a string to a numerical index to convert the key to a specific, fixed-length number, referred to as a hash code.
+
+3. How does a hash table store data?
+  A: It takes in a key, then converts the key to a hash code using a hashing function, then mods the hash code in order to get an array index, then stores the value in the array index to be called for later use.
+
+4. How are hash tables and objects different?
+  Answer: Hash tables use a hash function to create it's keys while objects do not need to. 
+
+5. Determine whether you would use a hash table or an object to store each of the following pieces of data:
+    a. A list of pets and their unique names.
+        A: hash table
+
+    b. The name, age, and the birthday of your best friend.
+        A: object
+
+    c. The name and location of every company in a given city.
+        A: hash table
+
+    d. All of the books checked out from a library by a particular individual.
+        A: hash table
+
+    e. The primary and secondary phone numbers for a contact.
+        A: object - if it is for only a single contact. If it is for all contacts in a phone then it would be a hash table. 
+
+
+Programming Questions:
+
+1. Create a hash table that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers.
+
+  var hash = (string, max) => {
+  var hash = 0;
+  for (var i = 0; i < string.length; i++) {
+    hash += string.charCodeAt(i);
+  }
+  return hash % max;
+};
+
+let HashTable = function() {
+
+  let storage = [];
+  const storageLimit = 999;
+
+  this.add = function(key,value) {
+    var index = hash(key, storageLimit);
+    if (storage[index] === undefined) {
+      storage[index] = [
+        [key,value]
+      ];
+    } else {
+      var inserted = false;
+      for (var i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === key) {
+          storage[index][i][1] = value;
+          inserted = true;
+        }
+      }
+      if (inserted === false) {
+        storage[index].push([key,value]);
+      }
+    }
+  };
+
+  this.lookup = function(key) {
+    var index = hash(key, storageLimit);
+    if (storage[index] === undefined) {
+      return undefined;
+    } else {
+      for (var i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === key) {
+          return storage[index][i][1];
+        }
+      }
+    }
+  };
+
+};
+
+var addedNewCustomer = new HashTable();
+addedNewCustomer.add(5651365960,{name:'Alex Lindamood', address:'9298 Columbia Avenue'})
+addedNewCustomer.add(4219593844,{name:'Joshua Turske',address:'149 Linda Road'});
+addedNewCustomer.add(1629784330,{name:'Jacob Schipper',address:'7461 Broad Street'});
+addedNewCustomer.add(2321765761,{name:'Austin Ching',address:'9853 W. Paris Hill Street'});
+
+console.log(addedNewCustomer.lookup(5651365960));
+console.log(addedNewCustomer.lookup(4219593844));
+console.log(addedNewCustomer.lookup(1629784330));
+console.log(addedNewCustomer.lookup(2321765761));
+
+Returns in console: 
+[object Object] {
+  address: "9298 Columbia Avenue",
+  name: "Alex Lindamood"
+}
+[object Object] {
+  address: "149 Linda Road",
+  name: "Joshua Turske"
+}
+[object Object] {
+  address: "7461 Broad Street",
+  name: "Jacob Schipper"
+}
+[object Object] {
+  address: "9853 W. Paris Hill Street",
+  name: "Austin Ching"
+}
+
+
+2. Create a hash table that allows a store owner to track their store's inventory and quantity.
+
+var hash = (string,max) =>{
+  var hash= 0
+  for(var i=0; i<string.length;i++){
+    hash += string.charCodeAt(i)
+  }
+  return hash % max;
+};
+
+let HashTable = function(){
+ let storage = [];
+ const storageLimit= 999;
+
+
+ this.add = function(key, value) {
+    var index = hash(key, storageLimit);
+    if (storage[index] === undefined) {
+      storage[index] = [
+        [key, value]
+      ];
+    } else {
+      var inserted = false;
+      for (var i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === key) {
+          storage[index][i][1] = value;
+          inserted = true;
+        }
+      }
+      if (inserted === false) {
+        storage[index].push([key, value]);
+      }
+    }
+  };
+
+  this.search = function(key) {
+    var index = hash(key, storageLimit);
+    if (storage[index] === undefined) {
+      return undefined;
+    } else {
+      for (var i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === key) {
+          return storage[index][i][1];
+        }
+      }
+    }
+  };
+
+};
+
+var inventory = new HashTable();
+inventory.add('apple', 485);
+inventory.add('banana', 796);
+inventory.add('mango', 420);
+inventory.add('orange', 126);
+
+console.log(inventory.search('apple'));
+console.log(inventory.search('banana'));
+console.log(inventory.search('mango'));
+console.log(inventory.search('orange'));
+
+Returns in console: 
+485
+796
+420
+126
+
+
+
+
+3. Create a hash table that allows digital copies of newspapers to be entered and searched by publisher and publication date.
+
+class HashTable{
+  constructor(size = 999){
+    this.buckets = new Array(size)
+    this.size = size
+  }
+
+hash(key){
+  return key.toString().length % this.size;
+}
+
+add(obj){
+  let key = obj.publisher + obj.date
+  let index = this.hash(key);
+  if(!this.buckets[index]){
+    this.buckets[index] = [];
+  }
+  this.buckets[index] = (obj)
+  return index
+}
+
+find(obj){
+  let key = obj.publisher + obj.date
+  let index = this.hash(key)
+  if (this.buckets[index]) {
+      return this.buckets[index]
+  }
+    return "Error"
+
+}
+}
+const hashTable = new HashTable();
+
+hashTable.add({
+  publisher: 'The Bloc journal',
+  date: '04-3-2019',
+  paper: 'The Beauty of Web Design'
+});
+
+hashTable.add({
+  publisher: 'The Thinkful Gazette',
+  date: '02-25-2016',
+  paper: "Computer Science at it's Core"
+});
+
+console.log(hashTable.find({
+  publisher: 'The Bloc journal',
+  date: '04-3-2019'
+})); 
+
+console.log(hashTable.find({
+  publisher: 'The Thinkful Gazette',
+  date: '02-25-2016'
+})); 
+
+Returns in console:
+[object Object] {
+  date: "04-3-2019",
+  paper: "The beauty of web design",
+  publisher: "The Bloc journal"
+}
+[object Object] {
+  date: "02-25-2016",
+  paper: "Computer Science at it's Core",
+  publisher: "The Thinkful Gazette"
+}

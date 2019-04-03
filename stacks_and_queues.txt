@@ -1,0 +1,50 @@
+1. What is the main difference between a stack and a queue?
+
+A: The main difference is that stacks use a LIFO method to add data while queues use FIFO.
+
+2. What are the similarities between stacks and queues?
+
+A: The main similarities are that they both allow you to rank tasks, create an order of operations, and support system functions. 
+
+3. Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+
+A: I would use a stack because the LIFO method makes more sense. You want to undo or redo the most recent action that was completed and not the first thing you did when you started the new file. 
+
+
+Programming Questions
+You may program the following question in any language of your choice. Before you begin coding, write out a plan as to how you will solve the question.
+
+1. Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+
+A: I was actually asked this in an interview last week! I couldn't figure it out then but now know how to solve it after some research. You use .split() to convert the string to an arary. Then use .reverse() to reverse all elements in the array, then use .join() to convert the array to back to a string which is now reversed. 
+
+function reverseString(toBeReversed){
+    return toBeReversed.split("").reverse().join("");
+}
+console.log(reverseString("Bloc!"));
+
+2. Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
+
+var queue = ["Nate", "Jason", "Linda", "Steven", "Jonathan"]
+function fifoToLifo(array) {
+  for (let i=0; i < array.length -1; i++) {
+    var lifoArray = array.shift();
+    array.push(lifoArray);
+  }
+  return array.shift();
+}
+console.log(fifoToLifo(queue));
+console.log(queue);
+
+
+3. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
+
+function Queue() {
+  var collection = [];
+  this.enqueue = function(element) {
+    return collection.push(element);
+  };
+  this.dequeue = function() {
+    return collection.shift();
+  }
+}

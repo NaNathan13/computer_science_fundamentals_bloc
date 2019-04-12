@@ -84,56 +84,74 @@ Input: a -> c -> d -> d -> a
 Output: a -> c -> d
 
 A:
-function LinkedList(){
-  this.head= null;
-  this.length=0;
+
+function LinkedList() {
+  var length = 0;
+  var head = null;
+
+var Node = function(element) {
+  this.element = element;
+  this.next = null;
 }
 
-LinkedList.prototype.push = function(val){  
-    var node = {
-       value: val,
-       next: null
+this.add = function(element){
+  var node = new Node(element);
+  if (head === null) {
+  head = node;
+  } else {
+    var currentNode = head;
+    while(currentNode.next) {
+      currentNode = currentNode.next;
     }
-  
-    if(!this.head){
-      this.head = node;  
-      this.length += 1;    
-      return node;
-    }
-    else{
-      current = this.head;
-      while(current.next){
-        current = current.next;
-      }
-      current.next = node;
-      this.length += 1;
-      return node;
-    }
+    currentNode.next = node;
   }
+  length++;
+}
 
-LinkedList.prototype.duplicate = function(){
- if (!this.head || !this.head.next) {
-      return;
-  }
-
-    var thisNode = this.head;
-    while (thisNode != null) {
-      var previousNode = thisNode;
-      var nextNode = thisNode.next;
-      while (nextNode != null) {
-        if (thisNode.value == nextNode.value) {
-          previousNode.next = nextNode.next;
-          this.length --;
+this.removeDuplicates = function() {
+  var dupFinder = head;
+  var currentNode = dupFinder.next;
+  var previousNode;
+  while(dupFinder != null) {
+    while(currentNode !== null) {
+        if (dupFinder.element == currentNode.element && dupFinder.next.element ==     currentNode.element){
+        dupFinder.next = currentNode.next;
+        currentNode = dupFinder.next;
+        length --;
+        } else if (dupFinder.element == currentNode.element){
+          previousNode.next = currentNode.next;
+          currentNode = previousNode.next;
+          length --;
         } else {
-          previousNode = nextNode;
+          previousNode = currentNode;
+          currentNode = currentNode.next;
+          }
         }
-        nextNode = nextNode.next;
-      }
-      thisNode = thisNode.next;
+        dupFinder = dupFinder.next;
+        if(dupFinder === null){
+        } else {
+        currentNode = dupFinder.next
+        }
     }
-    return this;
   }
 
+  this.print = function(){
+    var currentNode = head;
+    while(currentNode !== null) {
+    console.log(currentNode.element);
+    currentNode = currentNode.next;
+    }
+  }
+}
+
+var test = new LinkedList();
+test.add('a');
+test.add('c');
+test.add('d');
+test.add('d');
+test.add('a');
+test.removeDuplicates();
+test.print();
 
 3. Given an unsorted singly linked list, reverse it.
 Example
